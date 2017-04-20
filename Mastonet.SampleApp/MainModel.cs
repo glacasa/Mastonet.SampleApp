@@ -19,13 +19,17 @@ namespace Mastonet.SampleApp
             Client = new MastodonClient(app, auth);
             InitModel();
         }
-
-
+        
         private async void InitModel()
         {
             var home = await Client.GetHomeTimeline();
             Home = new ObservableCollection<Status>(home);
+            var homeStream = Client.GetUserStreaming();
+            homeStream.OnUpdate += HomeStream_OnUpdate;
+            //homeStream.Start();
         }
+
+        // Timelines
 
         private ObservableCollection<Status> home;
         public ObservableCollection<Status> Home
@@ -40,6 +44,15 @@ namespace Mastonet.SampleApp
                 }
             }
         }
+
+
+        private void HomeStream_OnUpdate(object sender, StreamUpdateEventArgs e)
+        {
+            Home.Insert(0, e.Status);
+        }
+
+
+        // Post
 
         private string status;
         public string Status
