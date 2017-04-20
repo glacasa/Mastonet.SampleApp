@@ -16,20 +16,13 @@ using System.Windows.Shapes;
 namespace Mastonet.SampleApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainView : UserControl
     {
-        public MainWindow()
+        public MainView()
         {
             InitializeComponent();
-        }
-
-        private void Login_Logged(object sender, EventArgs e)
-        {
-            this.rootGrid.Children.RemoveAt(0);
-
-            this.rootGrid.Children.Add(new MainView());
         }
     }
 }
