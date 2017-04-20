@@ -21,10 +21,17 @@ namespace Mastonet.SampleApp
     /// </summary>
     public partial class MainView : UserControl
     {
+        public MainModel Model { get { return (MainModel)DataContext; } }
+
         public MainView(AppRegistration app, Auth auth)
         {
             InitializeComponent();
             this.DataContext = new MainModel(app, auth);
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            await Model.Post();
         }
     }
 }

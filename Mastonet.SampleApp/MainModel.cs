@@ -41,9 +41,24 @@ namespace Mastonet.SampleApp
             }
         }
 
+        private string status;
+        public string Status
+        {
+            get { return status; }
+            set
+            {
+                if (status != value)
+                {
+                    status = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
-
-
+        public Task Post()
+        {
+            return Client.PostStatus(Status, Visibility.Private);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

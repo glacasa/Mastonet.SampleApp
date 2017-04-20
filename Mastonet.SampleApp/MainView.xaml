@@ -14,7 +14,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Column="3" ItemsSource="{Binding Home}">
+        <StackPanel Grid.Column="0">
+            <TextBox TextWrapping="Wrap" Text="{Binding Status, Mode=OneWayToSource}"></TextBox>
+            <Button Click="Button_Click">TOOT!</Button>
+        </StackPanel>
+
+        <ListBox Grid.Column="1" ItemsSource="{Binding Home}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Content}"></TextBlock>
