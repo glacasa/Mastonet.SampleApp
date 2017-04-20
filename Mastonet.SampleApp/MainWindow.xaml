@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mastonet.SampleApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Mastonet Sample App" Height="350" Width="525">
     <Grid x:Name="rootGrid">
 
         <local:Login Logged="Login_Logged"></local:Login>        
