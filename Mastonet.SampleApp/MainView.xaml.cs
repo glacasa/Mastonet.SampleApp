@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastonet.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace Mastonet.SampleApp
     /// </summary>
     public partial class MainView : UserControl
     {
-        public MainView()
+        public MainView(AppRegistration app, Auth auth)
         {
             InitializeComponent();
+            this.DataContext = new MainModel(app, auth);
         }
     }
 }

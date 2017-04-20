@@ -25,11 +25,11 @@ namespace Mastonet.SampleApp
             InitializeComponent();
         }
 
-        private void Login_Logged(object sender, EventArgs e)
+        private void Login_Logged(object sender, LoggedEventArgs e)
         {
             this.rootGrid.Children.RemoveAt(0);
 
-            this.rootGrid.Children.Add(new MainView());
+            this.rootGrid.Children.Add(new MainView(e.App, e.Auth));
         }
     }
 }

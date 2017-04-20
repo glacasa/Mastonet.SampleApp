@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastonet.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,12 @@ namespace Mastonet.SampleApp
     /// </summary>
     public partial class Login : UserControl
     {
-        public event EventHandler<EventArgs> Logged;
+        public event EventHandler<LoggedEventArgs> Logged;
+
+        private AuthenticationClient client;
+
+        private AppRegistration app;
+        private Auth auth;
 
         public Login()
         {
@@ -30,10 +36,11 @@ namespace Mastonet.SampleApp
 
         private async void Login_Click(object sender, RoutedEventArgs e)
         {
-            var app = await StaticClient.Register(instanceName.Text);
+            client = new AuthenticationClient(instanceName.Text);
+            app = await client.CreateApp("Mastonet Sample App", Scope.Read | Scope.Write | Scope.Follow);
             // TODO : save app
 
-            var url = StaticClient.Client.OAuthUrl();
+            var url = client.OAuthUrl();
 
             browser.Visibility = System.Windows.Visibility.Visible;
             browser.Navigate(url);
@@ -41,7 +48,7 @@ namespace Mastonet.SampleApp
 
         private static Regex authRegex = new Regex("/oauth/authorize/([a-z0-9]{64})", RegexOptions.Compiled);
 
-        private  async void browser_Navigating(object sender, NavigatingCancelEventArgs e)
+        private async void browser_Navigating(object sender, NavigatingCancelEventArgs e)
         {
             var uri = e.Uri.AbsoluteUri;
             var m = authRegex.Match(uri);
@@ -50,17 +57,26 @@ namespace Mastonet.SampleApp
             {
                 var code = m.Groups[1].Value;
 
-                var auth = await StaticClient.Client.ConnectWithCode(code);
+                auth = await client.ConnectWithCode(code);
                 // TODO : save token
 
-                Logged?.Invoke(this, EventArgs.Empty);
+                Logged?.Invoke(this, new LoggedEventArgs(app, auth));
             }
 
         }
 
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Logged?.Invoke(this, EventArgs.Empty);
-        //}
+   
+    }
+
+    public class LoggedEventArgs : EventArgs
+    {
+        public AppRegistration App { get; set; }
+        public Auth Auth { get; set; }
+
+        public LoggedEventArgs(AppRegistration app, Auth auth)
+        {
+            App = app;
+            Auth = auth;
+        }
     }
 }
