@@ -1,6 +1,7 @@
 ﻿using Mastonet.Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,16 +17,29 @@ namespace Mastonet.SampleApp
         public MainModel(AppRegistration app, Auth auth)
         {
             Client = new MastodonClient(app, auth);
-            InitModel().Wait();
+            InitModel();
         }
 
 
-        private async Task InitModel()
+        private async void InitModel()
         {
-            //var home = await Client.GetHomeTimeline();
+            var home = await Client.GetHomeTimeline();
+            Home = new ObservableCollection<Status>(home);
         }
 
-
+        private ObservableCollection<Status> home;
+        public ObservableCollection<Status> Home
+        {
+            get { return home; }
+            set
+            {
+                if (home != value)
+                {
+                    home = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
 
