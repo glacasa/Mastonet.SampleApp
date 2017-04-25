@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -68,9 +69,21 @@ namespace Mastonet.SampleApp
             }
         }
 
-        public Task Post()
+        public async Task Post()
         {
-            return Client.PostStatus(Status, Visibility.Private);
+            var mediaIds = attachments.Select(a => a.Id);
+
+            await Client.PostStatus(Status, Visibility.Private, mediaIds:mediaIds);
+            attachments = new List<Attachment>();
+            Status = "";
+        }
+
+        List<Attachment> attachments = new List<Attachment>();
+
+        public async Task Upload(Stream stream, string fileName)
+        {
+            var attachment = await Client.UploadMedia(stream, "img");
+            attachments.Add(attachment);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

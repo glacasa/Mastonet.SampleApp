@@ -1,6 +1,8 @@
 ﻿using Mastonet.Entities;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,9 +31,24 @@ namespace Mastonet.SampleApp
             this.DataContext = new MainModel(app, auth);
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void Toot_Click(object sender, RoutedEventArgs e)
         {
             await Model.Post();
+        }
+
+        private void Image_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "*.jpg|*.png";
+            dialog.Multiselect = false;
+
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                var file = dialog.OpenFile();
+                var name = dialog.SafeFileName;
+                Model.Upload(file, name);
+            }
         }
     }
 }
