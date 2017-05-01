@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace Mastonet.SampleApp
         public Login()
         {
             InitializeComponent();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         private async void Login_Click(object sender, RoutedEventArgs e)
