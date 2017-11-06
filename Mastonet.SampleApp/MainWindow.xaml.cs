@@ -31,5 +31,10 @@ namespace Mastonet.SampleApp
 
             this.rootGrid.Children.Add(new MainView(e.App, e.Auth));
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.LoginControl.CheckLogin();
+        }
     }
 }
