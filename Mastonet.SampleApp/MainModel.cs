@@ -13,11 +13,11 @@ namespace Mastonet.SampleApp
 {
     public class MainModel : INotifyPropertyChanged
     {
-        public Compat.MastodonClient Client { get; }
+        public MastodonClient Client { get; }
 
         public MainModel(AppRegistration app, Auth auth)
         {
-            Client = new Compat.MastodonClient(app, auth);
+            Client = new MastodonClient(app, auth);
             InitModel();
         }
         
