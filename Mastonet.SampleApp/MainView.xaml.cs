@@ -50,5 +50,21 @@ namespace Mastonet.SampleApp
                 Model.Upload(file, name);
             }
         }
+
+
+        private void Avatar_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "*.jpg|*.png";
+            dialog.Multiselect = false;
+
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                var file = dialog.OpenFile();
+                var name = dialog.SafeFileName;
+                Model.UploadAvatar(file, name);
+            }
+        }
     }
 }

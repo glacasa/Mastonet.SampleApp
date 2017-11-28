@@ -20,7 +20,7 @@ namespace Mastonet.SampleApp
             Client = new MastodonClient(app, auth);
             InitModel();
         }
-        
+
         private async void InitModel()
         {
             var home = await Client.GetHomeTimeline();
@@ -73,7 +73,7 @@ namespace Mastonet.SampleApp
         {
             var mediaIds = attachments.Select(a => a.Id);
 
-            await Client.PostStatus(Status, Visibility.Private, mediaIds:mediaIds);
+            await Client.PostStatus(Status, Visibility.Private, mediaIds: mediaIds);
             attachments = new List<Attachment>();
             Status = "";
         }
@@ -82,8 +82,15 @@ namespace Mastonet.SampleApp
 
         public async Task Upload(Stream stream, string fileName)
         {
-            var attachment = await Client.UploadMedia(stream, "img");
+            var media = new MediaDefinition(stream, fileName ?? "img");
+            var attachment = await Client.UploadMedia(media);
             attachments.Add(attachment);
+        }
+
+        public async Task UploadAvatar(Stream stream, string fileName)
+        {
+            var media = new MediaDefinition(stream, fileName ?? "img");
+            var profile = await Client.UpdateCredentials(null, null, media);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

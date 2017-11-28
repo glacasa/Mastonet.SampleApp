@@ -17,6 +17,7 @@
             <TextBox TextWrapping="Wrap" Text="{Binding Status, Mode=TwoWay}"></TextBox>
             <Button Click="Toot_Click">TOOT!</Button>
             <Button Click="Image_Click">Upload image</Button>
+            <Button Click="Avatar_Click">Upload new Avatar</Button>
         </StackPanel>
 
         <ListBox Grid.Column="1" ItemsSource="{Binding Home}">
