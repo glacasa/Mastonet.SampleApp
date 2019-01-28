@@ -39,11 +39,9 @@ namespace Mastonet.SampleApp
 
         public void CheckLogin()
         {
-            if (!String.IsNullOrEmpty(Properties.Settings.Default.AppInfo) && !String.IsNullOrEmpty(Properties.Settings.Default.Instance))
+            if (!String.IsNullOrEmpty(Properties.Settings.Default.AppInfo))
             {
                 app = JsonConvert.DeserializeObject<AppRegistration>(Properties.Settings.Default.AppInfo);
-                app.Instance = Properties.Settings.Default.Instance;
-                app.Scope = Scope.Read | Scope.Write | Scope.Follow;
                 client = new AuthenticationClient(app);
 
                 if (!String.IsNullOrEmpty(Properties.Settings.Default.AuthToken))
@@ -65,7 +63,6 @@ namespace Mastonet.SampleApp
             app = await client.CreateApp("Mastonet Sample App", Scope.Read | Scope.Write | Scope.Follow);
 
             Properties.Settings.Default.AppInfo = JsonConvert.SerializeObject(app);
-            Properties.Settings.Default.Instance = instanceName.Text;
             Properties.Settings.Default.Save();
 
             OpenLogin();
@@ -80,7 +77,7 @@ namespace Mastonet.SampleApp
 
         }
 
-        private static Regex authRegex = new Regex("/oauth/authorize/([a-z0-9]{64})", RegexOptions.Compiled);
+        private static Regex authRegex = new Regex(@"/oauth/authorize/native\?code=([a-z0-9]{64})", RegexOptions.Compiled);
 
         private async void browser_Navigating(object sender, NavigatingCancelEventArgs e)
         {
