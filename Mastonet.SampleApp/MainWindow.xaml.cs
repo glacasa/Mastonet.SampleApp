@@ -29,7 +29,7 @@ namespace Mastonet.SampleApp
         {
             this.rootGrid.Children.RemoveAt(0);
 
-            this.rootGrid.Children.Add(new MainView(e.App, e.Auth));
+            this.rootGrid.Children.Add(new MainView(e.App.Instance, e.Auth.AccessToken));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

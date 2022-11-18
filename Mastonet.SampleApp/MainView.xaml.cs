@@ -25,10 +25,10 @@ namespace Mastonet.SampleApp
     {
         public MainModel Model { get { return (MainModel)DataContext; } }
 
-        public MainView(AppRegistration app, Auth auth)
+        public MainView(string instance, string token)
         {
             InitializeComponent();
-            this.DataContext = new MainModel(app, auth);
+            this.DataContext = new MainModel(instance, token);
         }
 
         private async void Toot_Click(object sender, RoutedEventArgs e)
@@ -36,7 +36,7 @@ namespace Mastonet.SampleApp
             await Model.Post();
         }
 
-        private void Image_Click(object sender, RoutedEventArgs e)
+        private async void Image_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
             dialog.Filter = "*.jpg|*.png";
@@ -47,12 +47,12 @@ namespace Mastonet.SampleApp
             {
                 var file = dialog.OpenFile();
                 var name = dialog.SafeFileName;
-                Model.Upload(file, name);
+                await Model.Upload(file, name);
             }
         }
 
 
-        private void Avatar_Click(object sender, RoutedEventArgs e)
+        private async void Avatar_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
             dialog.Filter = "*.jpg|*.png";
@@ -63,7 +63,7 @@ namespace Mastonet.SampleApp
             {
                 var file = dialog.OpenFile();
                 var name = dialog.SafeFileName;
-                Model.UploadAvatar(file, name);
+                await Model.UploadAvatar(file, name);
             }
         }
     }

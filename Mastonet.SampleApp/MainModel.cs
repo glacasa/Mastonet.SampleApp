@@ -15,9 +15,9 @@ namespace Mastonet.SampleApp
     {
         public MastodonClient Client { get; }
 
-        public MainModel(AppRegistration app, Auth auth)
+        public MainModel(string instance, string token)
         {
-            Client = new MastodonClient(app, auth);
+            Client = new MastodonClient(instance, token);
             InitModel();
         }
 
@@ -73,7 +73,7 @@ namespace Mastonet.SampleApp
         {
             var mediaIds = attachments.Select(a => a.Id);
 
-            await Client.PostStatus(Status, Visibility.Private, mediaIds: mediaIds);
+            await Client.PublishStatus(Status, Visibility.Private, mediaIds: mediaIds);
             attachments = new List<Attachment>();
             Status = "";
         }
@@ -87,10 +87,11 @@ namespace Mastonet.SampleApp
             attachments.Add(attachment);
         }
 
-        public async Task UploadAvatar(Stream stream, string fileName)
+        public async Task<Account> UploadAvatar(Stream stream, string fileName)
         {
             var media = new MediaDefinition(stream, fileName ?? "img");
-            var profile = await Client.UpdateCredentials(null, null, media);
+            var profile = await Client.UpdateCredentials(avatar: media);
+            return profile;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

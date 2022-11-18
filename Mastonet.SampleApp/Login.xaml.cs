@@ -77,7 +77,7 @@ namespace Mastonet.SampleApp
 
         }
 
-        private static Regex authRegex = new Regex(@"/oauth/authorize/native\?code=([a-z0-9]{64})", RegexOptions.Compiled);
+        private static Regex authRegex = new Regex(@"/oauth/authorize/native\?code=([a-zA-Z0-9_-]+)", RegexOptions.Compiled);
 
         private async void browser_Navigating(object sender, NavigatingCancelEventArgs e)
         {
