@@ -27,7 +27,17 @@ namespace Mastonet.SampleApp
             Home = new ObservableCollection<Status>(home);
             var homeStream = Client.GetUserStreaming();
             homeStream.OnUpdate += HomeStream_OnUpdate;
-            //homeStream.Start();
+            homeStream.Start();
+
+            rateLimits = new Dictionary<ApiCallCategory, RateLimitEventArgs>();
+            Client.RateLimitsUpdated += Client_RateLimitsUpdated;
+        }
+
+        Dictionary<ApiCallCategory, RateLimitEventArgs> rateLimits;
+
+        private void Client_RateLimitsUpdated(object sender, RateLimitEventArgs e)
+        {
+            rateLimits[e.RateLimitCategory] = e;
         }
 
         // Timelines

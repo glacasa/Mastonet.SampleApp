@@ -103,14 +103,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Mastonet\Mastonet.Entities\Mastonet.Entities.csproj">
+      <Project>{29b18e55-f585-4730-8b3e-23fb4a8da9bd}</Project>
+      <Name>Mastonet.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Mastonet\Mastonet\Mastonet.csproj">
       <Project>{0e6b747e-a5f3-45b4-825e-e3e2f5295d68}</Project>
       <Name>Mastonet</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
+    <PackageReference Include="System.Text.Json">
+      <Version>8.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

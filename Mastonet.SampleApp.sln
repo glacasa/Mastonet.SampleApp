@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34310.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mastonet.SampleApp", "Mastonet.SampleApp\Mastonet.SampleApp.csproj", "{DA79F5EF-4243-4EEB-B20A-2017D714348A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mastonet", "..\Mastonet\Mastonet\Mastonet.csproj", "{0E6B747E-A5F3-45B4-825E-E3E2F5295D68}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mastonet.Entities", "..\Mastonet\Mastonet.Entities\Mastonet.Entities.csproj", "{29B18E55-F585-4730-8B3E-23FB4A8DA9BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0E6B747E-A5F3-45B4-825E-E3E2F5295D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E6B747E-A5F3-45B4-825E-E3E2F5295D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E6B747E-A5F3-45B4-825E-E3E2F5295D68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29B18E55-F585-4730-8B3E-23FB4A8DA9BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29B18E55-F585-4730-8B3E-23FB4A8DA9BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29B18E55-F585-4730-8B3E-23FB4A8DA9BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29B18E55-F585-4730-8B3E-23FB4A8DA9BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

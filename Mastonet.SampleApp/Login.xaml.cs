@@ -1,10 +1,10 @@
 ﻿using Mastonet.Entities;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,12 +41,12 @@ namespace Mastonet.SampleApp
         {
             if (!String.IsNullOrEmpty(Properties.Settings.Default.AppInfo))
             {
-                app = JsonConvert.DeserializeObject<AppRegistration>(Properties.Settings.Default.AppInfo);
+                app = JsonSerializer.Deserialize<AppRegistration>(Properties.Settings.Default.AppInfo);
                 client = new AuthenticationClient(app);
 
                 if (!String.IsNullOrEmpty(Properties.Settings.Default.AuthToken))
                 {
-                    auth = JsonConvert.DeserializeObject<Auth>(Properties.Settings.Default.AuthToken);
+                    auth = JsonSerializer.Deserialize<Auth>(Properties.Settings.Default.AuthToken);
                     Logged?.Invoke(this, new LoggedEventArgs(app, auth));
                 }
                 else
@@ -60,9 +60,9 @@ namespace Mastonet.SampleApp
         {
             client = new AuthenticationClient(instanceName.Text);
 
-            app = await client.CreateApp("Mastonet Sample App", Scope.Read | Scope.Write | Scope.Follow);
+            app = await client.CreateApp("Mastonet Sample App", null, null, GranularScope.Read, GranularScope.Write, GranularScope.Follow);
 
-            Properties.Settings.Default.AppInfo = JsonConvert.SerializeObject(app);
+            Properties.Settings.Default.AppInfo = JsonSerializer.Serialize(app);
             Properties.Settings.Default.Save();
 
             OpenLogin();
@@ -89,7 +89,7 @@ namespace Mastonet.SampleApp
                 var code = m.Groups[1].Value;
 
                 auth = await client.ConnectWithCode(code);
-                Properties.Settings.Default.AuthToken = JsonConvert.SerializeObject(auth);
+                Properties.Settings.Default.AuthToken = JsonSerializer.Serialize(auth);
                 Properties.Settings.Default.Save();
 
 
